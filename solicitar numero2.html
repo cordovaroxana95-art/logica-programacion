@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenador de Números</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Ordenador de Números</h1>
+        <p>Presiona el botón para ordenar 3 números.</p>
+        <button onclick="ordenarNumeros()">¡Empezar!</button>
+        <div id="resultados"></div>
+    </div>
+
+    <script>
+        /**
+         * Función principal para solicitar, analizar y ordenar tres números.
+         * Muestra los resultados en el DOM (en la página web) y en la consola.
+         */
+        function ordenarNumeros() {
+            // Limpia los resultados anteriores
+            const resultadosDiv = document.getElementById("resultados");
+            resultadosDiv.innerHTML = "";
+
+            // 1. Solicitar los 3 números al usuario
+            const num1Str = prompt("Por favor, ingresa el primer número:");
+            const num2Str = prompt("Por favor, ingresa el segundo número:");
+            const num3Str = prompt("Por favor, ingresa el tercer número:");
+
+            // 2. Validar las entradas
+            if (num1Str === null || num2Str === null || num3Str === null || isNaN(num1Str) || isNaN(num2Str) || isNaN(num3Str)) {
+                resultadosDiv.innerHTML = "<p style='color:red;'>Por favor, ingresa solo números válidos y no dejes campos vacíos.</p>";
+                console.log("Error: Entradas no válidas.");
+                return;
+            }
+
+            const numero1 = Number(num1Str);
+            const numero2 = Number(num2Str);
+            const numero3 = Number(num3Str);
+
+            // 3. Verificar si los números son iguales
+            if (numero1 === numero2 && numero2 === numero3) {
+                const mensaje = "¡Los tres números son iguales!";
+                resultadosDiv.innerHTML = `<p style='color:blue;'>${mensaje}</p>`;
+                console.log(mensaje);
+                return;
+            }
+
+            // 4. Analizar y ordenar los números
+            const numeros = [numero1, numero2, numero2, numero3];
+            
+            // Ordenar de mayor a menor
+            numeros.sort((a, b) => b - a);
+            const ordenMayorMenor = `<p>Orden de mayor a menor: ${numeros.join(", ")}</p>`;
+            
+            // Ordenar de menor a mayor
+            numeros.sort((a, b) => a - b);
+            const ordenMenorMayor = `<p>Orden de menor a mayor: ${numeros.join(", ")}</p>`;
+
+            // 5. Mostrar los resultados en el DOM
+            resultadosDiv.innerHTML = ordenMayorMenor + ordenMenorMayor;
+            
+            // Y también en la consola para referencia
+            console.log("Orden de mayor a menor:", numeros[2], numeros[1], numeros[0]);
+            console.log("Orden de menor a mayor:", numeros[0], numeros[1], numeros[2]);
+        }
+    </script>
+
+</body>
+</html>
